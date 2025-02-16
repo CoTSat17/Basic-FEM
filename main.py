@@ -52,7 +52,7 @@ while running:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         if event.button == 2:
                                 camera.previous_mouse_pos = pygame.mouse.get_pos()
-                        if event.button == 1:
+                        if event.button == 1 and not menus.mouse_in_menu(pygame.mouse.get_pos()):
                                 point_list.add_point(pygame.mouse.get_pos())
 
 
@@ -64,8 +64,6 @@ while running:
         point_list.draw_points(screen)
 
         # MENU SURFACES
-        rect = pygame.Rect((10,0),(100,100))
-        pygame.draw.rect(menu_bot,"white",rect=rect)
         menus.change_sufaces(pygame.mouse.get_pos(), event)
         menus.blit_surfaces(screen=screen)
 

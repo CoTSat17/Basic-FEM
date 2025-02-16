@@ -67,6 +67,22 @@ class Menus():
                 self.update_surfaces(mouse_position)
 
 
+        def mouse_in_menu(self, mouse_position:tuple):
+                """
+                Checks if the mouse is in top of a menu sufrace, gives a margin of 20 px \n
+                ::RETURN:: Retutns True if its in top of a menu
+                """
+                for menu in self.menus:
+                        conditions = {"T": mouse_position[1] < menu.height + 20,
+                                      "B": mouse_position[1] > menu.position[1] - 20,
+                                      "R": mouse_position[0] > menu.position[0] - 20,
+                                      "L": mouse_position[0] < menu.height + 20 } # Set of conditions depending on the orientation
+                        condition = conditions[menu.orientation]
+                        if condition:
+                                return True
+                
+                return False
+
 
 class MenuSurface(pygame.Surface):
         def __init__(self, size, orientation, screen_x, screen_y, color):

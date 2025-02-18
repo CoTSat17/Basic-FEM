@@ -187,7 +187,7 @@ class PointList():
 
         def draw_points(self, screen:pygame.surface):
                 for point in self.points:
-                        pygame.draw.circle(screen,"white",self.camera.to_camera_position(point.position), 2)
+                        pygame.draw.circle(screen,"black",self.camera.to_camera_position(point.position), 2)
 
 
 

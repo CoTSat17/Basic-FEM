@@ -11,7 +11,7 @@ def mousedown_events(event):
                 if not menus.mouse_in_menu(mouse_position) and button_add_nodes.active == 1: #If corresponding button is active
                         point_list.add_point(mouse_position) #Ads a node
                 else:
-                        buttons.mouse_in_button(mouse_position) #Checks if a button was clicked
+                        buttons.button_click(mouse_position) #Checks if a button was clicked
 
 
 
@@ -44,8 +44,8 @@ menu_bot = menus.create_menu(100,"B", "gray")
 
 # BUTTONS Definition
 buttons = Buttons(letra)
-button_add_nodes = buttons.add_button((10,10), (100,25), menu_bot, "Add Nodes")
-
+button_add_nodes = buttons.add_button((10,10), (100,25), menu_bot, "Add Nodes",1, opposite_group="TEST")
+button_test = buttons.add_button((200,10), (100,25), menu_bot, "Test", opposite_group="TEST")
 
 while running:
         for event in pygame.event.get():
@@ -82,5 +82,7 @@ while running:
         # flip() the display to put your work on screen
         pygame.display.flip()
         clock.tick(60)  
+
+
 
 pygame.quit()

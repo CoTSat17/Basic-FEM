@@ -144,6 +144,19 @@ class PointList():
                 for point in self.points:
                         pygame.draw.circle(screen,"black",self.camera.to_camera_position(point.position), 2)
 
+        
+        def is_point_close(self, position:tuple[int,int]):
+                """
+                Returns "point" if the position is at less than 20px of a point otherwise returns False
+                """
+                for point in self.points:
+                        distance = ((position[0]-point.position[0])**2 + (position[1]-point.position[1])**2)**(1/2)
+                        if distance <= 20:
+                                return point
+                
+                return False
+
+
 
 
 class Point():

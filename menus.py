@@ -142,7 +142,7 @@ class PointList():
 
         def draw_points(self, screen:pygame.surface):
                 for point in self.points:
-                        pygame.draw.circle(screen,"black",self.camera.to_camera_position(point.position), 2)
+                        pygame.draw.circle(screen,"red",self.camera.to_camera_position(point.position), 5)
 
         
         def is_point_close(self, position:tuple[int,int]):

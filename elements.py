@@ -6,7 +6,17 @@ class Elements():
                 self.element_list = []
                 self.new_element_nodes = []
 
-        def add_element(self, node):
+        def add_dalaunay_element(self, points_list:list[Point]):
+                """
+                From the points generated in "dalaunay" generates the corresponding elements
+                """
+                for points in points_list:
+                        new_element = Element(points)
+                        self.element_list.append(new_element)                        
+
+
+
+        def add_element_manually(self, node):
                 """
                 Adds the selected "node" to the new element that's being created, when it reaches 4 saves the new element
                 """
@@ -33,7 +43,7 @@ class Elements():
 class Element():
         def __init__(self, nodes:list[Point, Point]):
                 self.nodes = nodes
-                print(self.nodes)
+                print(nodes)
         
         def __str__(self):
                 node_txt = "\t".join(str(node.id) for node in self.nodes)

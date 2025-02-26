@@ -3,6 +3,7 @@ from menus import Menus, PointList
 from camera import Camera
 from buttons import Buttons
 from elements import Elements
+from delaunay import delaunay_triangles
 
 
 def mousedown_events(event:pygame.event.Event):
@@ -10,6 +11,7 @@ def mousedown_events(event:pygame.event.Event):
         Manages the mousedown events
         If the event wasn't a click reutrns False
         """
+        global mesh_triangles
 
         mouse_position = pygame.mouse.get_pos()
         if event.button == 2: #Checks Mid Button
@@ -24,11 +26,12 @@ def mousedown_events(event:pygame.event.Event):
                         if button_add_elements.active == 1: # If ADD ELEMENTS button is active
                                 add_elements(mouse_position)
 
-                else:
+                else: # If click was in a menu
                         buttons.button_click(mouse_position) #Checks if a button was clicked
 
-
-
+                        if button_generate_mesh.active == 1:
+                                button_generate_mesh.change_active()
+                                delaunay_triangles(point_list.points, element_list)
 
 
 
@@ -39,9 +42,7 @@ def add_elements(click_position):
         """
         node_in_element = point_list.is_point_close(click_position)
         if node_in_element != False: # If the mouse is close to a node
-                element_list.add_element(node_in_element)
-        
-
+                element_list.add_element_manually(node_in_element)
 
 
 
@@ -63,6 +64,9 @@ point_list = PointList(camera)
 #ELEMENT Definition
 element_list = Elements()
 
+#DELAUNAY Definition
+mesh_triangles = []
+
 
 #FONT Definition
 text_size = 20
@@ -78,6 +82,7 @@ menu_bot = menus.create_menu(100,"B", "gray")
 buttons = Buttons(letra)
 button_add_nodes = buttons.add_button((10,10), (100,25), menu_bot, "Nodes",1, opposite_group="actions")
 button_add_elements = buttons.add_button((200,10), (100,25), menu_bot, "Elements", opposite_group="actions")
+button_generate_mesh = buttons.add_button((400,10),(100,25), menu_bot, "test")
 
 while running:
         for event in pygame.event.get():
@@ -91,7 +96,7 @@ while running:
                                 camera.zoom *= 0.9
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        mousedown_events(event=event)
+                        mousedown_events(event)
 
 
         screen.fill(background_color)
@@ -109,6 +114,7 @@ while running:
         menus.change_sufaces(pygame.mouse.get_pos(), event)
         buttons.blit_buttons() # Draws the buttons of the surface
         menus.blit_surfaces(screen=screen)
+
 
 
 
